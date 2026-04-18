@@ -1,6 +1,6 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useState, useRef } from "react";
-import { Sun, Moon, Monitor, Trash2, Download, Upload, Leaf, ChevronRight, Bell, BellOff, LogIn, LogOut } from "lucide-react";
+import { Sun, Moon, Monitor, Trash2, Download, Upload, Heart, ChevronRight, Bell, BellOff, LogIn, LogOut } from "lucide-react";
 import { useTheme } from "@/hooks/use-theme";
 import { getHabits, getLogs, saveHabits, saveLogs } from "@/lib/habits";
 import { BottomNav } from "@/components/BottomNav";
@@ -19,8 +19,8 @@ export const Route = createFileRoute("/settings")({
   component: SettingsPage,
   head: () => ({
     meta: [
-      { title: "Continuum — Settings" },
-      { name: "description", content: "Customize your Continuum experience." },
+      { title: "TakeCare.ai — Settings" },
+      { name: "description", content: "Customize your TakeCare.ai experience." },
     ],
   }),
 });
@@ -44,7 +44,7 @@ function SettingsPage() {
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = `continuum-backup-${new Date().toISOString().split("T")[0]}.json`;
+    a.download = `takecare-backup-${new Date().toISOString().split("T")[0]}.json`;
     a.click();
     URL.revokeObjectURL(url);
     toast.success("Data exported successfully");
@@ -133,10 +133,10 @@ function SettingsPage() {
 
   return (
     <div className="min-h-screen pb-28">
-      <div className="max-w-lg mx-auto px-5 pt-12">
+      <div className="max-w-lg mx-auto px-6 pt-10">
         <div className="animate-fade-up-blur">
-          <p className="text-[13px] text-muted-foreground font-medium">Preferences</p>
-          <h1 className="text-2xl font-semibold text-foreground mt-0.5 tracking-tight" style={{ lineHeight: "1.2" }}>
+          <p className="text-base text-muted-foreground font-semibold">Preferences</p>
+          <h1 className="text-2xl font-extrabold text-foreground mt-1 tracking-tight" style={{ lineHeight: "1.2" }}>
             Settings
           </h1>
         </div>
@@ -288,15 +288,15 @@ function SettingsPage() {
 
           {/* About */}
           <section className="animate-fade-up-blur" style={{ animationDelay: "180ms" }}>
-            <h2 className="text-[11px] font-medium text-muted-foreground mb-2.5 uppercase tracking-wider">About</h2>
-            <div className="rounded-2xl bg-card shadow-[0_1px_4px_0_rgba(0,0,0,0.06),0_0_0_1px_rgba(0,0,0,0.03)] px-5 py-4">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-primary flex items-center justify-center">
-                  <Leaf className="w-5 h-5 text-primary-foreground" />
+            <h2 className="text-[11px] font-bold text-muted-foreground mb-2.5 uppercase tracking-wider">About</h2>
+            <div className="rounded-3xl bg-card shadow-[0_1px_4px_0_rgba(0,0,0,0.06),0_0_0_1px_rgba(0,0,0,0.03)] px-6 py-5">
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#D4956A] to-[#E8C9A0] flex items-center justify-center shadow-lg">
+                  <Heart className="w-6 h-6 text-white" fill="white" />
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-foreground">Continuum</p>
-                  <p className="text-[12px] text-muted-foreground">Version 1.0.0 · Built with care</p>
+                  <p className="font-bold text-foreground">TakeCare.ai</p>
+                  <p className="text-sm text-muted-foreground">Version 1.0.0 · Built with love for you ❤️</p>
                 </div>
               </div>
             </div>

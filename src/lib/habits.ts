@@ -18,16 +18,16 @@ export interface HabitLog {
   date: string; // YYYY-MM-DD
 }
 
-const HABITS_KEY = "continuum_habits";
-const LOGS_KEY = "continuum_logs";
+const HABITS_KEY = "takecare_habits";
+const LOGS_KEY = "takecare_logs";
 
 export const HABIT_COLORS = [
-  "oklch(0.38 0.08 160)", // forest
-  "oklch(0.55 0.15 200)", // ocean
-  "oklch(0.60 0.15 50)",  // amber
-  "oklch(0.50 0.15 320)", // berry
-  "oklch(0.55 0.12 270)", // lavender
-  "oklch(0.50 0.10 100)", // olive
+  "#5B8A72", // sage
+  "#D4956A", // warm amber
+  "#8BBAA1", // soft mint
+  "#C75050", // rose
+  "#9B7DB8", // lavender
+  "#7A9E9F", // teal
 ];
 
 export const MILESTONE_STREAKS = [7, 14, 21, 30, 50, 100, 200, 365];

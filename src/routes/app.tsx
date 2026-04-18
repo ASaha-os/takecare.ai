@@ -12,7 +12,7 @@ import { BottomNav } from "@/components/BottomNav";
 import { AddHabitSheet } from "@/components/AddHabitSheet";
 import { EditHabitSheet } from "@/components/EditHabitSheet";
 import { OnboardingFlow, isOnboarded } from "@/components/OnboardingFlow";
-import { Leaf, Sparkles, ChevronDown, Pencil, Check } from "lucide-react";
+import { Heart, Sparkles, ChevronDown, Pencil, Check, CalendarHeart, MapPin, Gift, ArrowRight } from "lucide-react";
 import { toast } from "sonner";
 import { rescheduleAllReminders, scheduleReminder } from "@/lib/notifications";
 import { useAuth } from "@/hooks/use-auth";
@@ -34,8 +34,8 @@ export const Route = createFileRoute("/app")({
   component: TodayPage,
   head: () => ({
     meta: [
-      { title: "Continuum — Your daily ritual" },
-      { name: "description", content: "Build lasting habits with Continuum. Simple streak tracking, beautiful progress visualization." },
+      { title: "TakeCare.ai — Your daily routines" },
+      { name: "description", content: "Stay on top of your daily check-ins and routines with TakeCare.ai." },
     ],
   }),
 });
@@ -255,23 +255,23 @@ function TodayPage() {
 
   return (
     <div className="min-h-screen pb-28 relative">
-      <div className="relative max-w-lg mx-auto px-5 pt-12">
+      <div className="relative max-w-lg mx-auto px-6 pt-10">
         {/* Header */}
         <div className="flex items-start justify-between animate-fade-up-blur">
           <div>
-            <p className="text-[13px] text-muted-foreground font-medium">{greeting}</p>
-            <h1 className="text-2xl font-semibold text-foreground mt-0.5 tracking-tight" style={{ lineHeight: "1.2" }}>
+            <p className="text-base text-muted-foreground font-semibold">{greeting}, dear 💛</p>
+            <h1 className="text-2xl font-extrabold text-foreground mt-1 tracking-tight" style={{ lineHeight: "1.2" }}>
               {allDone ? (
                 <span className="flex items-center gap-2">
-                  Perfect day
-                  <Sparkles className="w-5 h-5 text-primary" />
+                  Wonderful day!
+                  <Sparkles className="w-6 h-6 text-[#D4956A]" />
                 </span>
               ) : (
-                "Your daily ritual"
+                "Your Daily Routines"
               )}
             </h1>
-            {subtitle && <p className="text-sm text-muted-foreground mt-1">{dateStr} · {subtitle}</p>}
-            {!subtitle && <p className="text-sm text-muted-foreground mt-1">{dateStr}</p>}
+            {subtitle && <p className="text-base text-muted-foreground mt-1.5 font-medium">{dateStr} · {subtitle}</p>}
+            {!subtitle && <p className="text-base text-muted-foreground mt-1.5 font-medium">{dateStr}</p>}
           </div>
           {scheduledToday.length > 0 && (
             <div className="flex-shrink-0 -mt-1">
@@ -280,13 +280,133 @@ function TodayPage() {
           )}
         </div>
 
+        {/* ── Smart Action Cards ── */}
+        <div className="mt-8 space-y-4 animate-fade-up-blur" style={{ animationDelay: "100ms" }}>
+          <p className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">What would you like today?</p>
+
+          {/* Card 1 — Create a healthy routine */}
+          <button
+            onClick={() => {
+              localStorage.setItem("takecare_prefill", JSON.stringify({
+                prompt: `I am an elderly person living in India. Please create a complete, healthy daily routine for me that is realistic and considers the typical Indian lifestyle. Include:
+
+- Morning prayers or meditation (5:30–6:00 AM)
+- Gentle yoga or stretching suitable for my age
+- Breakfast, lunch, evening snack, and dinner times with healthy Indian food suggestions (dal, roti, sabzi, khichdi, curd rice, fruits)
+- Medicine reminders 3 times a day (morning, afternoon, night) — remind me clearly
+- Drinking water alerts — at least 8 glasses spread through the day
+- A short afternoon walk or light exercise
+- Evening social time (phone call with family, or sitting in the park)
+- Brain exercises to help with memory (puzzles, reading newspaper, recalling names)
+- Calm nighttime wind-down with warm milk and early sleep by 9:30 PM
+
+Make it warm and encouraging. Format it as a clear timetable I can follow. Use simple language.`,
+              }));
+              navigate({ to: "/insights" });
+            }}
+            className="w-full rounded-3xl bg-card border border-border/50 p-6 text-left hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 group"
+          >
+            <div className="flex items-start gap-4">
+              <div className="w-14 h-14 rounded-2xl bg-[#5B8A72]/10 flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform">
+                <CalendarHeart className="w-7 h-7 text-[#5B8A72]" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <h3 className="font-bold text-lg text-foreground leading-tight">"Help me create a good routine for my age"</h3>
+                <p className="text-muted-foreground mt-1.5 leading-relaxed text-sm">
+                  A personalised daily schedule with meals, medicine reminders, water alerts, gentle exercises, and peaceful evening wind-down.
+                </p>
+              </div>
+              <ArrowRight className="w-5 h-5 text-muted-foreground/40 flex-shrink-0 mt-1 group-hover:text-primary group-hover:translate-x-1 transition-all" />
+            </div>
+          </button>
+
+          {/* Card 2 — Find nearby elderly-friendly places */}
+          <button
+            onClick={async () => {
+              let locationInfo = "I couldn't access your location, but ";
+              try {
+                const pos = await new Promise<GeolocationPosition>((resolve, reject) => {
+                  navigator.geolocation.getCurrentPosition(resolve, reject, { timeout: 8000 });
+                });
+                locationInfo = `My location is approximately ${pos.coords.latitude.toFixed(4)}°N, ${pos.coords.longitude.toFixed(4)}°E. Based on this, `;
+              } catch {
+                locationInfo = "I was unable to share my exact location, but I live in India. Based on general knowledge, ";
+              }
+
+              localStorage.setItem("takecare_prefill", JSON.stringify({
+                prompt: `${locationInfo}please suggest some elderly-friendly hangout spots and social places near me. Include:
+
+- Nearby parks and gardens with walking paths and benches
+- Community halls or senior citizen clubs
+- Laughing clubs or laughter yoga groups (very popular in India)
+- Gentle gyms or yoga centres that welcome elderly members
+- Temple, mosque, gurudwara, or church communities with elder gatherings
+- Libraries or reading rooms
+- Any morning walker groups or evening social circles
+
+For each suggestion, explain why it's good for seniors and what to expect. Use a warm, encouraging tone. If you recognise my area from the coordinates, mention the city/locality name.`,
+              }));
+              navigate({ to: "/insights" });
+            }}
+            className="w-full rounded-3xl bg-card border border-border/50 p-6 text-left hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 group"
+          >
+            <div className="flex items-start gap-4">
+              <div className="w-14 h-14 rounded-2xl bg-[#D4956A]/10 flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform">
+                <MapPin className="w-7 h-7 text-[#D4956A]" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <h3 className="font-bold text-lg text-foreground leading-tight">"Suggest elderly-friendly hangout places nearby"</h3>
+                <p className="text-muted-foreground mt-1.5 leading-relaxed text-sm">
+                  Discover parks, laughing clubs, community halls, gentle gyms, and social groups in your area. We'll ask for your location.
+                </p>
+              </div>
+              <ArrowRight className="w-5 h-5 text-muted-foreground/40 flex-shrink-0 mt-1 group-hover:text-primary group-hover:translate-x-1 transition-all" />
+            </div>
+          </button>
+
+          {/* Card 3 — Surprise my partner */}
+          <button
+            onClick={() => {
+              localStorage.setItem("takecare_prefill", JSON.stringify({
+                prompt: `I want to surprise my partner for their birthday (or anniversary). I am elderly and live in India. Please help me plan a beautiful, heartfelt surprise. Suggest:
+
+- Simple but meaningful gift ideas (flowers, handwritten letters, photo albums, their favourite sweets)
+- A plan for the day — morning surprise, afternoon outing, evening celebration
+- Easy-to-arrange home decoration ideas (balloons, fairy lights, rangoli)
+- A lovely meal plan I can either cook or order (favourite Indian dishes)
+- A sweet message or poem I can write for them
+- Ideas for involving children or grandchildren in the surprise
+
+Make the plan warm, realistic, and achievable for someone my age. I can ask you follow-up questions to refine the plan.`,
+              }));
+              navigate({ to: "/insights" });
+            }}
+            className="w-full rounded-3xl bg-card border border-border/50 p-6 text-left hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 group"
+          >
+            <div className="flex items-start gap-4">
+              <div className="w-14 h-14 rounded-2xl bg-[#C75050]/10 flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform">
+                <Gift className="w-7 h-7 text-[#C75050]" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <h3 className="font-bold text-lg text-foreground leading-tight">"I want to surprise my partner for a special day"</h3>
+                <p className="text-muted-foreground mt-1.5 leading-relaxed text-sm">
+                  Plan a heartfelt birthday or anniversary surprise — gifts, decorations, meals, and lovely messages, all within your comfort.
+                </p>
+              </div>
+              <ArrowRight className="w-5 h-5 text-muted-foreground/40 flex-shrink-0 mt-1 group-hover:text-primary group-hover:translate-x-1 transition-all" />
+            </div>
+          </button>
+        </div>
+
         {/* Habit list */}
         {habits.length === 0 ? (
-          <div className="border-2 border-dashed border-muted-foreground/20 rounded-2xl py-16 px-6 text-center animate-fade-up-blur mt-6" style={{ animationDelay: "160ms" }}>
-            <Leaf className="w-7 h-7 text-muted-foreground/40 mx-auto mb-4" />
-            <p className="text-foreground font-semibold text-lg">A fresh start</p>
-            <p className="text-sm text-muted-foreground mt-1.5 max-w-[240px] mx-auto" style={{ textWrap: "pretty" }}>
-              Tap the + button below to add your first habit
+          <div className="rounded-3xl bg-card border border-border/50 shadow-sm py-16 px-8 text-center animate-fade-up-blur mt-8" style={{ animationDelay: "160ms" }}>
+            <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#D4956A] to-[#E8C9A0] flex items-center justify-center mx-auto mb-5">
+              <Heart className="w-8 h-8 text-white" fill="white" />
+            </div>
+            <p className="text-foreground font-extrabold text-xl">Let's get started!</p>
+            <p className="text-muted-foreground mt-2 max-w-[280px] mx-auto text-base">
+              Tap the + button below to add your first daily routine
             </p>
           </div>
         ) : (

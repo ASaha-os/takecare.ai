@@ -113,11 +113,12 @@ export async function toggleLogInCloud(habitId: string, date: string, userId: st
 
 /** Migrate localStorage data to cloud on first login */
 export async function migrateLocalToCloud(userId: string): Promise<void> {
-  const MIGRATED_KEY = "continuum_cloud_migrated";
+  const MIGRATED_KEY = "takecare_cloud_migrated";
   if (localStorage.getItem(MIGRATED_KEY) === userId) return;
 
-  const localHabitsRaw = localStorage.getItem("continuum_habits");
-  const localLogsRaw = localStorage.getItem("continuum_logs");
+  // Check both old and new key names for backward compatibility
+  const localHabitsRaw = localStorage.getItem("takecare_habits") || localStorage.getItem("continuum_habits");
+  const localLogsRaw = localStorage.getItem("takecare_logs") || localStorage.getItem("continuum_logs");
 
   if (!localHabitsRaw && !localLogsRaw) {
     localStorage.setItem(MIGRATED_KEY, userId);

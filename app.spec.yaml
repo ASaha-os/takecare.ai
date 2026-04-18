@@ -1,0 +1,26 @@
+spec_version: 2
+name: takecare-ai
+region: nyc
+
+static_sites:
+  - name: takecare-ai-frontend
+    build_command: npm install && npm run build
+    source_dir: /
+    output_dir: dist
+    catchall_document: index.html
+    
+    environment_slug: node-js
+    
+    envs:
+      - key: VITE_SUPABASE_URL
+        value: ${SUPABASE_URL}
+        scope: BUILD_TIME
+      - key: VITE_SUPABASE_PUBLISHABLE_KEY
+        value: ${SUPABASE_PUBLISHABLE_KEY}
+        scope: BUILD_TIME
+      - key: VITE_GEMINI_API_KEY
+        value: ${GEMINI_API_KEY}
+        scope: BUILD_TIME
+
+    routes:
+      - path: /

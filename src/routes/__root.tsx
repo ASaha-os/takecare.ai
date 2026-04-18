@@ -8,18 +8,17 @@ export const Route = createRootRoute({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1, viewport-fit=cover" },
-      { title: "Continuum — Build lasting habits" },
-      { name: "description", content: "A calm, focused habit tracker. Track streaks, visualize progress, and build your daily ritual." },
-      { name: "author", content: "Continuum" },
-      { property: "og:title", content: "Continuum — Build lasting habits" },
-      { property: "og:description", content: "A calm, focused habit tracker. Track streaks, visualize progress, and build your daily ritual." },
+      { title: "TakeCare.ai — Your gentle companion" },
+      { name: "description", content: "TakeCare.ai helps elderly loved ones stay connected, find misplaced items, and enjoy warm conversations with a caring AI companion." },
+      { name: "author", content: "TakeCare.ai" },
+      { property: "og:title", content: "TakeCare.ai — Your gentle companion" },
+      { property: "og:description", content: "TakeCare.ai helps elderly loved ones stay connected, find misplaced items, and enjoy warm conversations with a caring AI companion." },
       { property: "og:type", content: "website" },
-      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/b9uXYmgdTyWTYhHfslbu4ZrHRZ73/social-images/social-1775640713838-continuum.webp" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:site", content: "@Lovable" },
-      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/b9uXYmgdTyWTYhHfslbu4ZrHRZ73/social-images/social-1775640713838-continuum.webp" },
-      { name: "twitter:title", content: "Continuum — Build lasting habits" },
-      { name: "twitter:description", content: "A calm, focused habit tracker. Track streaks, visualize progress, and build your daily ritual." },
+      { name: "twitter:site", content: "@TakeCareAI" },
+      { name: "twitter:title", content: "TakeCare.ai — Your gentle companion" },
+      { name: "twitter:description", content: "TakeCare.ai helps elderly loved ones stay connected, find misplaced items, and enjoy warm conversations with a caring AI companion." },
+      { name: "theme-color", content: "#FDF8F3" },
     ],
     links: [
       {
@@ -33,7 +32,7 @@ export const Route = createRootRoute({
       },
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap",
       },
       {
         rel: "stylesheet",
@@ -44,7 +43,7 @@ export const Route = createRootRoute({
       {
         children: `
           (function() {
-            var theme = localStorage.getItem('continuum_theme') || 'light';
+            var theme = localStorage.getItem('takecare_theme') || 'light';
             if (theme === 'system') {
               theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
             }

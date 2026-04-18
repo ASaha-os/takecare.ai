@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Leaf, ArrowRight, Check, Sparkles } from "lucide-react";
+import { Heart, ArrowRight, Check, Sparkles } from "lucide-react";
 import { HABIT_COLORS, createHabit } from "@/lib/habits";
 import type { Habit } from "@/lib/habits";
 
@@ -7,7 +7,7 @@ interface OnboardingFlowProps {
   onComplete: (habit?: Habit) => void;
 }
 
-const ONBOARDED_KEY = "continuum_onboarded";
+const ONBOARDED_KEY = "takecare_onboarded";
 
 export function isOnboarded(): boolean {
   if (typeof window === "undefined") return true;
@@ -19,10 +19,10 @@ export function setOnboarded(): void {
 }
 
 const SUGGESTED_HABITS = [
-  { name: "Morning walk", description: "20 minutes of fresh air", color: HABIT_COLORS[0] },
-  { name: "Read", description: "At least 10 pages", color: HABIT_COLORS[1] },
-  { name: "Meditate", description: "5 minutes of stillness", color: HABIT_COLORS[4] },
-  { name: "Drink water", description: "8 glasses throughout the day", color: HABIT_COLORS[2] },
+  { name: "Take morning medicine", description: "With breakfast, as prescribed", color: HABIT_COLORS[0] },
+  { name: "Gentle morning walk", description: "15 minutes of fresh air", color: HABIT_COLORS[1] },
+  { name: "Call a loved one", description: "Stay connected with family", color: HABIT_COLORS[2] },
+  { name: "Drink water", description: "Stay hydrated throughout the day", color: HABIT_COLORS[3] },
 ];
 
 export function OnboardingFlow({ onComplete }: OnboardingFlowProps) {
@@ -64,14 +64,14 @@ export function OnboardingFlow({ onComplete }: OnboardingFlowProps) {
 
         {step === 0 && (
           <div className="text-center animate-fade-up-blur">
-            <div className="w-20 h-20 rounded-3xl bg-primary flex items-center justify-center mx-auto mb-6">
-              <Leaf className="w-9 h-9 text-primary-foreground" />
+            <div className="w-20 h-20 rounded-3xl bg-gradient-to-br from-[#D4956A] to-[#E8C9A0] flex items-center justify-center mx-auto mb-6 shadow-xl">
+              <Heart className="w-9 h-9 text-white" fill="white" />
             </div>
-            <h1 className="text-2xl font-semibold text-foreground tracking-tight" style={{ lineHeight: "1.2" }}>
-              Welcome to Continuum
+            <h1 className="text-2xl font-extrabold text-foreground tracking-tight" style={{ lineHeight: "1.2" }}>
+              Welcome to TakeCare.ai
             </h1>
-            <p className="text-sm text-muted-foreground mt-3 mx-auto max-w-[280px]" style={{ textWrap: "pretty" }}>
-              A calm space to build lasting habits. No noise, no pressure — just you and your daily ritual.
+            <p className="text-base text-muted-foreground mt-3 mx-auto max-w-[280px] leading-relaxed">
+              Your gentle companion for everyday living. Let's set up some simple daily routines together. 💛
             </p>
             <button
               onClick={() => setStep(1)}
@@ -93,9 +93,9 @@ export function OnboardingFlow({ onComplete }: OnboardingFlowProps) {
             </h1>
             <div className="mt-6 space-y-4 text-left">
               {[
-                { emoji: "☑️", text: "Tap to mark habits complete each day" },
-                { emoji: "🔥", text: "Build streaks with consecutive days" },
-                { emoji: "📊", text: "Watch your progress grow over time" },
+                { emoji: "☕", text: "Simple daily check-ins to keep you on track" },
+                { emoji: "🗣️", text: "Talk to your AI companion anytime" },
+                { emoji: "📷", text: "Snap a photo to find misplaced items" },
               ].map(({ emoji, text }, i) => (
                 <div
                   key={i}
@@ -111,7 +111,7 @@ export function OnboardingFlow({ onComplete }: OnboardingFlowProps) {
               onClick={() => setStep(2)}
               className="mt-8 inline-flex items-center gap-2 bg-primary text-primary-foreground px-8 py-3.5 rounded-xl text-sm font-medium hover:bg-primary/90 transition-all duration-200 active:scale-[0.97]"
             >
-              Create my first habit
+              Add my first routine
               <ArrowRight className="w-4 h-4" />
             </button>
           </div>
@@ -119,10 +119,10 @@ export function OnboardingFlow({ onComplete }: OnboardingFlowProps) {
 
         {step === 2 && (
           <div className="animate-fade-up-blur">
-            <h1 className="text-2xl font-semibold text-foreground tracking-tight text-center" style={{ lineHeight: "1.2" }}>
-              Pick a habit to start
+            <h1 className="text-2xl font-extrabold text-foreground tracking-tight text-center" style={{ lineHeight: "1.2" }}>
+              Pick a daily routine
             </h1>
-            <p className="text-sm text-muted-foreground mt-2 text-center">
+            <p className="text-base text-muted-foreground mt-2 text-center">
               Choose one or type your own
             </p>
 
