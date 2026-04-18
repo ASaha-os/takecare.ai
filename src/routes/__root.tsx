@@ -41,6 +41,10 @@ export const Route = createRootRoute({
     ],
     scripts: [
       {
+        src: "https://js.puter.com/v2/",
+        defer: true,
+      },
+      {
         children: `
           (function() {
             var theme = localStorage.getItem('takecare_theme') || 'light';

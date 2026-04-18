@@ -100,27 +100,27 @@
 /* ─── Dark theme: Warm mocha ─── */
 .dark {
   --background: #1C1816;
-  --foreground: #F0E8DF;
-  --card: #262120;
-  --card-foreground: #F0E8DF;
-  --popover: #262120;
-  --popover-foreground: #F0E8DF;
+  --foreground: #F5EDE4;
+  --card: #2A2421;
+  --card-foreground: #F5EDE4;
+  --popover: #2A2421;
+  --popover-foreground: #F5EDE4;
   --primary: #8BBAA1;
   --primary-foreground: #1C1816;
-  --secondary: #332D2A;
-  --secondary-foreground: #8BBAA1;
-  --muted: #332D2A;
-  --muted-foreground: #A89889;
+  --secondary: #3D3632;
+  --secondary-foreground: #D4E8DC;
+  --muted: #3D3632;
+  --muted-foreground: #C4B5A6;
   --accent: #4A3F35;
   --accent-foreground: #E8C9A0;
-  --destructive: #C75050;
-  --destructive-foreground: #F0E8DF;
-  --border: #3D3632;
-  --input: #3D3632;
+  --destructive: #E86B6B;
+  --destructive-foreground: #F5EDE4;
+  --border: #4A3F35;
+  --input: #4A3F35;
   --ring: #8BBAA1;
   --mint: #2E3D34;
-  --mint-foreground: #8BBAA1;
-  --surface-alt: #2A2421;
+  --mint-foreground: #D4E8DC;
+  --surface-alt: #332D2A;
   --success: #8BBAA1;
   --warm: #D4956A;
   --warm-foreground: #1C1816;
@@ -128,14 +128,14 @@
   --chart-2: #D4956A;
   --chart-3: #E8C9A0;
   --chart-4: #5B8A72;
-  --chart-5: #332D2A;
+  --chart-5: #3D3632;
   --sidebar: #221E1C;
-  --sidebar-foreground: #F0E8DF;
+  --sidebar-foreground: #F5EDE4;
   --sidebar-primary: #8BBAA1;
   --sidebar-primary-foreground: #1C1816;
-  --sidebar-accent: #332D2A;
-  --sidebar-accent-foreground: #8BBAA1;
-  --sidebar-border: #3D3632;
+  --sidebar-accent: #3D3632;
+  --sidebar-accent-foreground: #D4E8DC;
+  --sidebar-border: #4A3F35;
   --sidebar-ring: #8BBAA1;
 }
 
@@ -188,6 +188,24 @@
 }
 
 /* ── Keyframes ── */
+
+@keyframes card-pop {
+  0% { transform: scale(0.92) translateY(20px); opacity: 0; }
+  60% { transform: scale(1.03) translateY(-4px); }
+  100% { transform: scale(1) translateY(0); opacity: 1; }
+}
+
+@keyframes flash-border {
+  0%, 100% { box-shadow: 0 0 0 0 transparent; }
+  50% { box-shadow: 0 0 20px 4px rgba(212, 149, 106, 0.4); }
+}
+
+@keyframes typing-word {
+  0% { opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { opacity: 0; }
+}
 
 @keyframes float-orb {
   0%, 100% { transform: translate(-50%, -50%) scale(1); }
@@ -267,6 +285,44 @@
   50% { box-shadow: 0 0 40px rgba(212, 149, 106, 0.3); }
 }
 
+@keyframes float-particle {
+  0%, 100% { transform: translateY(0px) translateX(0px) rotate(0deg); opacity: 0.4; }
+  25% { transform: translateY(-20px) translateX(10px) rotate(90deg); opacity: 0.8; }
+  50% { transform: translateY(-10px) translateX(-8px) rotate(180deg); opacity: 0.5; }
+  75% { transform: translateY(-30px) translateX(5px) rotate(270deg); opacity: 0.9; }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+@keyframes scroll-reveal {
+  from { opacity: 0; transform: translateY(32px); filter: blur(4px); }
+  to { opacity: 1; transform: translateY(0); filter: blur(0); }
+}
+
+@keyframes counter-up {
+  from { transform: translateY(8px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes card-lift {
+  from { transform: translateY(0) scale(1); box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
+  to { transform: translateY(-6px) scale(1.01); box-shadow: 0 20px 40px rgba(0,0,0,0.12); }
+}
+
+@keyframes icon-spin-once {
+  from { transform: rotate(0deg) scale(1); }
+  50% { transform: rotate(180deg) scale(1.2); }
+  to { transform: rotate(360deg) scale(1); }
+}
+
+@keyframes typing-dot {
+  0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+  30% { transform: translateY(-6px); opacity: 1; }
+}
+
 /* ── Animation utilities ── */
 
 .animate-fade-up-blur {
@@ -317,10 +373,128 @@
   animation: warm-glow 3s ease-in-out infinite;
 }
 
+.animate-float-particle {
+  animation: float-particle 6s ease-in-out infinite;
+}
+
+.animate-shimmer {
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.15) 50%, transparent 100%);
+  background-size: 200% auto;
+  animation: shimmer 2.5s linear infinite;
+}
+
+.animate-scroll-reveal {
+  animation: scroll-reveal 700ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.animate-typing-dot {
+  animation: typing-dot 1.4s ease-in-out infinite;
+}
+
 .scroll-revealed {
   opacity: 1 !important;
   transform: translateY(0) !important;
   filter: blur(0) !important;
+}
+
+/* Scroll-reveal initial state */
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(32px);
+  filter: blur(4px);
+  transition: opacity 700ms cubic-bezier(0.16, 1, 0.3, 1),
+              transform 700ms cubic-bezier(0.16, 1, 0.3, 1),
+              filter 700ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-on-scroll.revealed {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+}
+
+/* Card pop animation on reveal */
+.card-pop-on-scroll {
+  opacity: 0;
+  transform: scale(0.92) translateY(20px);
+}
+
+.card-pop-on-scroll.revealed {
+  animation: card-pop 600ms cubic-bezier(0.34, 1.56, 0.64, 1) forwards,
+             flash-border 800ms ease-out 300ms;
+}
+
+/* Feature card hover */
+.feature-card {
+  transition: transform 350ms cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 350ms ease,
+              border-color 350ms ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-8px) scale(1.01);
+  box-shadow: 0 24px 48px rgba(0,0,0,0.10);
+}
+
+.feature-card:hover .feature-icon {
+  animation: icon-spin-once 500ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+/* Shimmer button */
+.btn-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-shimmer::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.25) 50%, transparent 60%);
+  transform: translateX(-100%);
+  transition: transform 0s;
+}
+
+.btn-shimmer:hover::after {
+  transform: translateX(100%);
+  transition: transform 500ms ease;
+}
+
+/* Review card hover */
+.review-card {
+  transition: transform 300ms cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 300ms ease;
+}
+
+.review-card:hover {
+  transform: translateY(-4px) rotate(0.3deg);
+  box-shadow: 0 16px 40px rgba(0,0,0,0.08);
+}
+
+/* Nav link underline effect */
+.nav-link {
+  position: relative;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: currentColor;
+  border-radius: 1px;
+  transition: width 250ms ease;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+/* Parallax container */
+.parallax-slow {
+  will-change: transform;
 }
 
 /* ── Elderly accessibility helpers ── */

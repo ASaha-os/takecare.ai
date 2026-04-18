@@ -8,6 +8,11 @@ async function getSupabase() {
   return supabase;
 }
 
+async function getLovable() {
+  const { lovable } = await import("@/integrations/lovable/index");
+  return lovable;
+}
+
 export const Route = createFileRoute("/login")({
   component: LoginPage,
   head: () => ({
@@ -30,17 +35,37 @@ function LoginPage() {
   const handleGoogleSignIn = async () => {
     setGoogleLoading(true);
     try {
-      const supabase = await getSupabase();
-      const { error } = await supabase.auth.signInWithOAuth({
-        provider: "google",
-        options: {
-          redirectTo: `${window.location.origin}/app`,
-        },
-      });
-      if (error) {
-        toast.error(error.message || "Google sign-in failed");
+      // Check if running inside Lovable editor iframe
+      let isInIframe = false;
+      try { isInIframe = window.self !== window.top; } catch { isInIframe = true; }
+
+      if (isInIframe) {
+        // Inside Lovable editor — use Lovable's popup-based OAuth
+        const lovable = await getLovable();
+        const result = await lovable.auth.signInWithOAuth("google", {
+          redirect_uri: `${window.location.origin}/app`,
+        });
+        if (result.error) {
+          toast.error((result.error as Error).message || "Google sign-in failed");
+          return;
+        }
+        if (!result.redirected) {
+          navigate({ to: "/app" });
+        }
+      } else {
+        // Standalone app — use Supabase OAuth with redirect callback
+        const supabase = await getSupabase();
+        const { error } = await supabase.auth.signInWithOAuth({
+          provider: "google",
+          options: {
+            redirectTo: `${window.location.origin}/auth/callback`,
+          },
+        });
+        if (error) {
+          toast.error(error.message || "Google sign-in failed");
+        }
+        // Browser will redirect to Google, then back to /auth/callback
       }
-      // If success, the browser will redirect to Google — no need to navigate
     } catch (err: any) {
       toast.error(err.message || "Google sign-in failed");
     } finally {
