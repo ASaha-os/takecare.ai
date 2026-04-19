@@ -7,6 +7,7 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 .env
+.env.local
 node_modules
 dist
 dist-ssr
@@ -15,6 +16,7 @@ dist-ssr
 .tanstack/**
 .nitro
 *.local
+.kiro/
 
 # Lock files — only use npm (package-lock.json)
 bun.lockb

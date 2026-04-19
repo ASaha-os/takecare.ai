@@ -161,7 +161,7 @@ function devServerFnErrorLogger() {
 }
 
 export default defineConfig(({ command, mode }) => {
-  const useCloudflare = command === "build";
+  const useCloudflare = command === "build" && process.env.DEPLOY_TARGET === "cloudflare";
 
   // Load VITE_ env vars and define them for SSR
   const env = loadEnv(mode, process.cwd(), "VITE_");
