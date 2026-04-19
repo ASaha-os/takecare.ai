@@ -4,6 +4,9 @@
   "outputDirectory": "dist/client",
   "framework": null,
   "rewrites": [
+    { "source": "/favicon.ico", "destination": "/favicon.ico" },
+    { "source": "/placeholder.svg", "destination": "/placeholder.svg" },
+    { "source": "/assets/(.*)", "destination": "/assets/$1" },
     { "source": "/(.*)", "destination": "/api/ssr" }
   ],
   "headers": [
@@ -15,7 +18,9 @@
     },
     {
       "source": "/favicon.ico",
-      "headers": [{ "key": "Cache-Control", "value": "public, max-age=86400" }]
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=86400" }
+      ]
     }
   ]
 }
