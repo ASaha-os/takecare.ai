@@ -1,7 +1,7 @@
 // Vercel serverless function — TanStack Start SSR handler
 // Built server exports a Web Fetch API `fetch` handler via `server.fetch`
 
-export const config = { runtime: "nodejs20.x" };
+export const config = { runtime: "nodejs" };
 
 let handler;
 
