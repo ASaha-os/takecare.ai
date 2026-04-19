@@ -8,7 +8,7 @@ A warm, accessible AI companion app designed for elderly users — featuring voi
 
 <br />
 
-![TakeCare.ai Hero](statics\app_ss\home_takecare.ai.jpeg)
+![TakeCare.ai Hero](statics/app_ss/home_takecare.ai.jpeg)
 
 <br />
 
@@ -207,7 +207,7 @@ takecare-ai/
 
 | Landing Page | AI Companion | Habit Tracker |
 |---|---|---|
-| ![Landing](statics\app_ss\home_takecare.ai.jpeg) | ![Chat](statics\app_ss\chat_takecare.ai.jpeg) | ![Habits](statics\app_ss\routine_takecare.ai.jpeg) |
+| ![Landing](statics/app_ss/home_takecare.ai.jpeg) | ![Chat](statics/app_ss/chat_takecare.ai.jpeg) | ![Habits](statics/app_ss/routine_takecare.ai.jpeg) |
 
 ---
 

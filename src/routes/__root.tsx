@@ -22,15 +22,6 @@ export const Route = createRootRoute({
     ],
     links: [
       {
-        rel: "icon",
-        href: "/favicon.ico",
-        type: "image/x-icon",
-      },
-      {
-        rel: "shortcut icon",
-        href: "/favicon.ico",
-      },
-      {
         rel: "preconnect",
         href: "https://fonts.googleapis.com",
       },
@@ -74,6 +65,8 @@ function RootShell({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <head>
+        <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="shortcut icon" href="/favicon.ico" />
         <HeadContent />
       </head>
       <body className="pb-[env(safe-area-inset-bottom)]">
